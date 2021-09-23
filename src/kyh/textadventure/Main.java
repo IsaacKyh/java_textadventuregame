@@ -1,7 +1,7 @@
 package kyh.textadventure;
 
-import java.util.Scanner;
 
+import java.util.Scanner;
 
 public class Main {
     public static void  main(String[] args) {
@@ -14,6 +14,7 @@ public class Main {
         int col = 0;
 
         Scanner input = new Scanner(System.in);
+
 
         System.out.print("Welcome to the Text Adventure Game (TAG)");
 
@@ -32,7 +33,7 @@ public class Main {
             //    Vi delar upp det inmatade värdet vid varje mellanslag
             String[] commandParts = command.split(" ");
 
-            // 4. kollar viljet "huvudkomando" som har angivits
+            // 4. kollar vilket "huvudkommando" som har angivits
             //    Dessa är:
             //      -go
             //      -quit
