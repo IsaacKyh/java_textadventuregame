@@ -1,3 +1,4 @@
+/*
 package kyh.textadventure;
 
 import java.util.Scanner;
@@ -37,3 +38,5 @@ public class AdventureGame {
     }
 
 }
+
+*/

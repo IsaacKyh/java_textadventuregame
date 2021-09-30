@@ -1,14 +1,63 @@
 package kyh.textadventure;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+
+    public static void save(int row, int col) {
+        File file = new File("./save/saved_game.txt");
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            String position = String.format("%d, %d", row, col);
+            fileWriter.write(position);
+
+            fileWriter.close();
+            System.out.println("The game is now saved");
+        } catch (IOException e) {
+            System.out.println("could not save the game");
+        }
+
+    }
+
+
+    public static String load() {
+        File file = new File("./save/saved_game.txt");
+        try {
+            Scanner fileScanner = new Scanner(file);
+            String position = fileScanner.nextLine();
+
+            fileScanner.close();
+            return position;
+        } catch (FileNotFoundException e) {
+            System.out.println("could not load a saved game");
+        }
+        return null;
+    }
+
     public static void  main(String[] args) {
         // Initialisering
         Room pinkRoom = new Room("Pink room", "This is a room with pink walls filled with pink furniture");
         Room aHall = new Room("A hall", "A large hallway with a fancy rug on the floor");
         Room theEntrance = new Room("The entrance", "A large entrance to the map.");
         Room aDarkCave = new Room("A dark cave", "A very dark cave without any lights, and it is close to pitch black.");
+
+        // Creating a dagger and adding it to the room theEntrance.
+        Item dagger = new Item("Dagger", "A small but vary deadly dagger");
+        theEntrance.setItem(dagger);
+
+        //  Creating a chest with three items and places it in the hall on the map.
+        Chest chest = new Chest ("Chest", "A large chest containing other items");
+        Item Shield = new Item("Shield", "A massive shield that works as a wall");
+        Item potion = new Item("Health potion", "A potion that restores your health");
+        Item sword = new Item("Sword", "A very sharp and mighty sword left behind bbu conan the barbarian");
+        chest.addItemToChest(Shield);
+        chest.addItemToChest(potion);
+        chest.addItemToChest(sword);
+        aHall.setItem(chest);
 
         Room[][] map = {
                 {pinkRoom, aHall},
@@ -25,9 +74,11 @@ public class Main {
         // här börjar spelloopen
         while(running){
             // 1. Skriv ut vilket rum vi är i
-            System.out.println(map[row][col].getName());
-            System.out.println(map[row][col].getDescription());
-            System.out.println("There are " + map[row][col].numberOfDoors + " doors in this room");
+//            System.out.println(map[row][col].getName());
+//            System.out.println(map[row][col].getDescription());
+//            System.out.println(map[row][col].getItemDescription());
+              System.out.println(map[row][col].toString());
+//            System.out.println("There are " + map[row][col].numberOfDoors + " doors in this room");
 
             // 2. Läs in kommando från användaren
             System.out.print("> ");
@@ -40,6 +91,8 @@ public class Main {
             // 4. kollar vilket "huvudkommando" som har angivits
             //    Dessa är:
             //      -go
+            //      -save
+            //      -load
             //      -quit
             if(commandParts[0].equalsIgnoreCase("go")){
                 // vi har angett "go" som kommando
@@ -78,6 +131,39 @@ public class Main {
                 }
                 else{
                     System.out.println("You can't go without any direction");
+                }
+            }
+
+            if(command.equalsIgnoreCase("look at item")){
+                // System.out.println(map[row][col].getItemDescription());
+                String itemDescription = map[row][col].getItemDescription();
+                System.out.println(itemDescription);
+            }
+
+            if(command.equalsIgnoreCase("save")){
+                save(row, col);
+            }
+
+            if(command.equalsIgnoreCase("load")){
+                String position = load();
+                if (position != null) {
+                    String[] pos = position.split(", ");
+                    int oldRow = row;
+                    int oldCol = col;
+                    row =  Integer.parseInt(pos[0]);
+                    col =  Integer.parseInt(pos[1]);
+                    if (row >= map.length){
+                        System.out.println("Error reading row coordinates from file. Are you cheating?");
+                        row = oldRow;
+                        col = oldCol;
+                    }
+                    else {
+                        if (col >= map[row].length) {
+                            System.out.println("Error reading row coordinates from file. Are you cheating?");
+                            row = oldRow;
+                            col = oldCol;
+                        }
+                    }
                 }
             }
 
