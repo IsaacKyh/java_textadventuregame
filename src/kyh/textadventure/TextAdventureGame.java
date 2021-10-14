@@ -186,6 +186,9 @@ public void runGame(){
                 running = false;
             }
         }
+}
+
+    public void quit() {
         System.out.println("Thanks for playing TAG");
     }
 }
