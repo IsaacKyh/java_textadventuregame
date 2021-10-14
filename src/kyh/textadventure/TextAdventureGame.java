@@ -8,6 +8,12 @@ import java.util.Scanner;
 
 public class TextAdventureGame {
 
+    int row;
+    int col;
+
+    Room[][] map;
+
+
     public static void save(int row, int col) {
         File file = new File("./save/saved_game.txt");
         try {
@@ -38,34 +44,41 @@ public class TextAdventureGame {
         return null;
     }
 
-public void runGame(){
+    public void initialization (){
 
-    // Initialisering
-    Room pinkRoom = new Room("Pink room", "This is a room with pink walls filled with pink furniture");
-    Room aHall = new Room("A hall", "A large hallway with a fancy rug on the floor");
-    Room theEntrance = new Room("The entrance", "A large entrance to the map.");
-    Room aDarkCave = new Room("A dark cave", "A very dark cave without any lights, and it is close to pitch black.");
+        // Initialisering
+        Room pinkRoom = new Room("Pink room", "This is a room with pink walls filled with pink furniture");
+        Room aHall = new Room("A hall", "A large hallway with a fancy rug on the floor");
+        Room theEntrance = new Room("The entrance", "A large entrance to the map.");
+        Room aDarkCave = new Room("A dark cave", "A very dark cave without any lights, and it is close to pitch black.");
 
-    // Creating a dagger and adding it to the room theEntrance.
-    Item dagger = new Item("Dagger", "A small but vary deadly dagger");
+        // Creating a dagger and adding it to the room theEntrance.
+        Item dagger = new Item("Dagger", "A small but vary deadly dagger");
         theEntrance.setItem(dagger);
 
-    //  Creating a chest with three items and places it in the hall on the map.
-    Chest chest = new Chest ("Chest", "A large chest containing other items");
-    Item Shield = new Item("Shield", "A massive shield that works as a wall");
-    Item potion = new Item("Health potion", "A potion that restores your health");
-    Item sword = new Item("Sword", "A very sharp and mighty sword left behind bbu conan the barbarian");
+        //  Creating a chest with three items and places it in the hall on the map.
+        Chest chest = new Chest ("Chest", "A large chest containing other items");
+        Item Shield = new Item("Shield", "A massive shield that works as a wall");
+        Item potion = new Item("Health potion", "A potion that restores your health");
+        Item sword = new Item("Sword", "A very sharp and mighty sword left behind bbu conan the barbarian");
         chest.addItemToChest(Shield);
         chest.addItemToChest(potion);
         chest.addItemToChest(sword);
         aHall.setItem(chest);
 
-    Room[][] map = {
-            {pinkRoom, aHall},
-            {theEntrance, aDarkCave}
-    };
-    int row = 1;
-    int col = 0;
+        map = new Room[][] {
+                {pinkRoom, aHall},
+                {theEntrance, aDarkCave}
+        };
+
+        row = 1;
+        col = 0;
+
+    }
+
+
+public void runGame(){
+
     Scanner input = new Scanner(System.in);
 
 
