@@ -6,5 +6,6 @@ public class Main {
         tag.initialization();
         tag.runGame();
         tag.quit();
+
     }
 }
