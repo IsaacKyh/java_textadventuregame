@@ -6,9 +6,9 @@ public class Room {
     // current state in the world.
     private String name;
     private String description;
-    public int numberOfDoors = 2;
-
     private Item item;
+
+    public int numberOfDoors = 2;
 
     // Store the default values for name and description of a room.
     public Room(String inName, String inDescription) {

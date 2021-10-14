@@ -7,6 +7,7 @@ public class Chest extends Item{
     ArrayList<Item> inventory = new ArrayList<Item>();
     int maxSize = 4;
 
+    // Create a new chest with the same information as a default item.
     public Chest(String inType, String inDescription) {
         super(inType, inDescription);
     }
